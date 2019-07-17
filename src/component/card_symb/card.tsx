@@ -12,10 +12,9 @@ const Box = styled.span`
     background: #F0F0F0;
     border-radius: 2px;
 
-    line-height:32px;
-    text-align: center;
-    margin-left: 8px;
-    
+    margin-left: 2px;
+    margin-right: 2px;
+
 `;
 
 

@@ -16,15 +16,22 @@ interface Props {
 };
 const Field = styled.div`
     display: flex;
-    margin: 0px;
     font-family: ArialMT;
     font-size: 15px;
+    line-height:32px;
+    text-align: center;
 `;
 
 
+function Detect(element: string) {
+    if(element==="*") return <Card work={false} value={'●'}/>
+    if(element==="I") return <Card work={true} value={'_'}/>
+    if(element.match(/[\d X]/)) return <Card work={false} value={element}/>
+     else return <span>{element}</span>
+
+}
 
 class Form extends React.Component<Props>{
-    // mask='+7(985)0II-**-**'/
     constructor(props: Props){
         super(props);
     }
@@ -32,7 +39,8 @@ class Form extends React.Component<Props>{
         return (
             <Field>
                 {this.props.mask.split("").map((element) => 
-                <Card work={false} value={element} />)}
+                Detect(element)
+                )}
             </Field>
         );
     }
