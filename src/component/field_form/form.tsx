@@ -2,7 +2,6 @@ import React from 'react';
 import Card from '../card_symb/card';
 import styled from 'styled-components';
 
-
 interface Props {
     /**
 	 * Маска инпута. Значения:
@@ -14,6 +13,7 @@ interface Props {
 	 */
     mask: string;
 };
+
 const Field = styled.div`
     display: flex;
     font-family: ArialMT;
@@ -21,7 +21,11 @@ const Field = styled.div`
     line-height:32px;
     text-align: center;
 `;
-
+const ErrorMessage = styled.div`
+    font-size: 13px;
+    color: #FF1100;
+    line-height:20px;
+`;
 
 function Detect(element: string) {
     if(element==="*") return <Card work={false} value={'●'}/>
@@ -37,11 +41,18 @@ class Form extends React.Component<Props>{
     }
     render() {
         return (
-            <Field>
-                {this.props.mask.split("").map((element) => 
-                Detect(element)
-                )}
-            </Field>
+            <>
+                <Field>
+                    {this.props.mask.split("").map((element) => 
+                    Detect(element)
+                    )}
+                </Field>
+                <Field>
+                    <ErrorMessage> 
+                       Неверный номер, попробуйте еще раз
+                    </ErrorMessage>
+                </Field>
+            </>
         );
     }
 };
