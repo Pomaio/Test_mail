@@ -1,69 +1,37 @@
 import React from 'react';
-import styled from 'styled-components';
+import {Box,BoxI} from './card.styled';
 
 interface Props {
     work: boolean;
     value: string;
 };
-const Box = styled.span`
-    display: block;
-    width: 25px;
-    height: 32px;
-    border-radius: 2px;
+interface State {
+    input: string;
+};
 
-    margin-left: 2px;
-    margin-right: 2px;
-    background: #F0F0F0;
-`;
-const BoxI = styled.input`
-    text-align: center;
-    font-family: ArialMT;
-    font-size: 15px;
-
-    display: block;
-    width: 25px;
-    height: 32px;
-    border-radius: 2px;
-
-    border: 1px solid rgba(0, 0, 0, 0.12);
-    box-sizing: border-box;
-    padding: 0;
-    background: #FFFFFF;
-    outline:none;
-
-    &:hover{ 
-        border: 1px solid rgba(0, 0, 0, 0.24);
-    }
-    &:focus{
-        border: 1px solid rgba(0, 0, 0, 0.48);
-    }
-`;
-
-
-
-class Card extends React.Component<Props>{
-    constructor(props: Props){
+class Card extends React.Component<Props, State>{
+    constructor(props: Props) {
         super(props);
+        this.state = {input: ''}
     }
+
+
     render() {
         return (
-            <Box> 
-                { 
-                   this.Check(this.props)
-                }
-            </Box>
+            <>
+                {this.check()}
+            </>
         );
     }
-    Check(props: Props){
-        if(props.work) {
-            return <BoxI 
-                placeholder={props.value}
-
-                    ></BoxI>;
+    check() {
+        if (this.props.work) {
+            return <BoxI
+                value={this.state.input} 
+                placeholder={this.props.value}
+            ></BoxI>;
         }
-         else return props.value
+        else return <Box> {this.props.value} </Box>
     }
-
 };
 
 export default Card;
