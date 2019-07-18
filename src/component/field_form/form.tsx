@@ -23,6 +23,7 @@ class Form extends React.Component<Props>{
                 <Field>
                     {this.props.mask.split("").map((element) => this.detect(element))}
                 </Field>
+                <div>{this.state.input}</div>
                 {!this.state.condition && <Field>
                     <ErrorMessage> 
                        Неверный номер, попробуйте еще раз
@@ -41,9 +42,14 @@ class Form extends React.Component<Props>{
          else return <span>{element}</span>
     };
     updateData = (input:string) => {
-        const value = (this.state.condition) ? (this.state.input+input) : input;
-        this.setState({condition: (!input.match(/\d/)) ? false : true});
-        this.setState({ input: value});
+        if(input.match(/\d/)||input===''){
+            this.setState({condition: true});
+            this.setState({ input: this.state.input+input});
+        }
+        else{
+            this.setState({condition: false});
+            this.setState({ input: ''});
+        }
     }
 };
 
