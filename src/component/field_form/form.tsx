@@ -16,12 +16,12 @@ interface Props {
 
 
 class Form extends React.Component<Props>{
-    state = {input: '', condition: true}
+    state = {input: [''], condition: true}
     render() {
         return (
             <>
                 <Field>
-                    {this.props.mask.split("").map((element) => this.detect(element))}
+                    {this.props.mask.split("").map((element,index) => this.detect(element,index))}
                 </Field>
                 <div>{this.state.input}</div>
                 {!this.state.condition && <Field>
@@ -32,23 +32,23 @@ class Form extends React.Component<Props>{
             </>
         );
     }
-    detect = (element: string) => {
-        if(element==="*") return <Card work={false} value={'●'}/>
+    detect = (element: string, index:number) => {
+        if(element==="*") return <Card position={index} work={false} value={'●'}/>
         if(element==="I") {
-            return <Card 
+            return <Card position={index}
                 work={true} updateData={this.updateData} value={'_'}/>
     }
-        if(element.match(/[\d X]/)) return <Card work={false} value={element}/>
+        if(element.match(/[\d X]/)) return <Card position={index} work={false} value={element}/>
          else return <span>{element}</span>
     };
-    updateData = (input:string) => {
+    updateData = (input:string, position: number) => {
         if(input.match(/\d/)||input===''){
             this.setState({condition: true});
-            this.setState({ input: this.state.input+input});
+            this.state.input[position] = input;
         }
         else{
             this.setState({condition: false});
-            this.setState({ input: ''});
+            this.state.input[position] = '';
         }
     }
 };
