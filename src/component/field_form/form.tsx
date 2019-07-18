@@ -14,30 +14,36 @@ interface Props {
     mask: string;
 };
 
-function Detect(element: string) {
-    if(element==="*") return <Card work={false} value={'●'}/>
-    if(element==="I") return <Card work={true} value={'_'}/>
-    if(element.match(/[\d X]/)) return <Card work={false} value={element}/>
-     else return <span>{element}</span>
-};
 
 class Form extends React.Component<Props>{
-    constructor(props: Props){
-        super(props);
-    }
+    state = {input: '', condition: true}
     render() {
         return (
             <>
                 <Field>
-                    {this.props.mask.split("").map((element) => Detect(element))}
+                    {this.props.mask.split("").map((element) => this.detect(element))}
                 </Field>
-                <Field>
+                {!this.state.condition && <Field>
                     <ErrorMessage> 
                        Неверный номер, попробуйте еще раз
                     </ErrorMessage>
-                </Field>
+                </Field>}
             </>
         );
+    }
+    detect = (element: string) => {
+        if(element==="*") return <Card work={false} value={'●'}/>
+        if(element==="I") {
+            return <Card 
+                work={true} updateData={this.updateData} value={'_'}/>
+    }
+        if(element.match(/[\d X]/)) return <Card work={false} value={element}/>
+         else return <span>{element}</span>
+    };
+    updateData = (input:string) => {
+        const value = (this.state.condition) ? (this.state.input+input) : input;
+        this.setState({condition: (!input.match(/\d/)) ? false : true});
+        this.setState({ input: value});
     }
 };
 

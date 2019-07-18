@@ -4,18 +4,14 @@ import {Box,BoxI} from './card.styled';
 interface Props {
     work: boolean;
     value: string;
+    updateData?: (input: string) => void;
 };
 interface State {
     input: string;
 };
 
 class Card extends React.Component<Props, State>{
-    constructor(props: Props) {
-        super(props);
-        this.state = {input: ''}
-    }
-
-
+    state = {input: ''}
     render() {
         return (
             <>
@@ -26,12 +22,22 @@ class Card extends React.Component<Props, State>{
     check() {
         if (this.props.work) {
             return <BoxI
+
+                maxLength={1}
+                onChange={this.handleChange}
                 value={this.state.input} 
                 placeholder={this.props.value}
             ></BoxI>;
         }
-        else return <Box> {this.props.value} </Box>
+        return (
+            <Box> 
+                {this.props.value} 
+            </Box>);
     }
+    handleChange = ({ target }: any) => {
+        this.setState({ input: target.value });
+        this.props.updateData && this.props.updateData(target.value);
+    };
 };
 
 export default Card;

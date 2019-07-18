@@ -31,7 +31,9 @@ export const BoxI = styled.input`
 
     ${box_props}
     ${border_input_props}
-
+    &.danger{
+        border-color: red;
+    } 
     &:hover{ 
         border: 1px solid rgba(0, 0, 0, 0.24);
     }
