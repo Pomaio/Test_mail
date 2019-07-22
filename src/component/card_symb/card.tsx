@@ -22,13 +22,14 @@ class Card extends React.Component<Props, State>{
     }
     check() {
         if (this.props.work) {
-            return <BoxI
+            return(
+            <BoxI
                 className={(!this.state.input.match(/\d/)&& this.state.input!=='') ? 'danger':''}
                 maxLength={1}
                 onChange={this.handleChange}
                 value={this.state.input} 
                 placeholder={this.props.value}
-            ></BoxI>;
+            />);
         }
         return (
             <Box> 
