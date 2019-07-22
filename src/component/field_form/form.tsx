@@ -23,7 +23,6 @@ class Form extends React.Component<Props>{
                 <Field>
                     {this.props.mask.split("").map((element,index) => this.detect(element,index))}
                 </Field>
-                <div>{this.state.input}</div>
                 {!this.state.condition && <Field>
                     <ErrorMessage> 
                        Неверный номер, попробуйте еще раз
